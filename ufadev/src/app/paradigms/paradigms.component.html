@@ -9,6 +9,8 @@
     [placeholder]="'Поиск'">
 
   <app-paradigm-item
+    [appMark]="searchControl.value"
+    [hideWithoutMark]="true"
     *ngFor="let paradigm of paradigms"
     [paradigm]="paradigm">
   </app-paradigm-item>
