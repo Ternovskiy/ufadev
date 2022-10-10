@@ -2,6 +2,12 @@
 
 <ng-container *ngIf="paradigms$ | async as paradigms; else loader">
 
+  <input
+    type="search"
+    class="input-search"
+    [formControl]="searchControl"
+    [placeholder]="'Поиск'">
+
   <app-paradigm-item
     *ngFor="let paradigm of paradigms"
     [paradigm]="paradigm">

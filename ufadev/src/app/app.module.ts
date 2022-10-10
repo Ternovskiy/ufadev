@@ -8,6 +8,7 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {BaseUrlInterceptor} from './shared/base-url.interceptor';
 import { ParadigmsComponent } from './paradigms/paradigms.component';
 import { ParadigmItemComponent } from './paradigms/paradigm-item/paradigm-item.component';
+import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ParadigmItemComponent } from './paradigms/paradigm-item/paradigm-item.c
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: BaseUrlInterceptor, multi: true},
