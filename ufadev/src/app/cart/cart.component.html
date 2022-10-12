@@ -1,0 +1,23 @@
+<ng-container *ngIf="cartItems$ | async as cartItems; else loader">
+
+  <h2>Cart</h2>
+
+  <div class="card" *ngFor="let cartItem of cartItems">
+
+    <h3>{{cartItem.name}}</h3>
+
+    <div class="card-actions">
+      <span>{{cartItem.count}} шт.</span>
+    </div>
+
+  </div>
+
+  <h3 *ngIf="cartItems.length === 0">
+    Корзина пуста
+  </h3>
+
+</ng-container>
+
+<ng-template #loader>
+  <div class="loader">Загрузка</div>
+</ng-template>
