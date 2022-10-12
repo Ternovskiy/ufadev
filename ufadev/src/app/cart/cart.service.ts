@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {combineLatest, map, mergeWith, Observable, shareReplay, Subject, tap} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {catchError, combineLatest, map, mergeWith, Observable, shareReplay, Subject, tap} from 'rxjs';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {ParadigmsService} from '../paradigms/paradigms.service';
 import {IParadigm} from '../paradigms/i-paradigm';
 
@@ -33,12 +33,14 @@ export class CartService {
 
   add(id: number) {
     return this.http.put<CartApiItem[]>('cart', id).pipe(
+      catchError((response: HttpErrorResponse) => this.handleError(response)),
       tap((cartItems) => this.cartApiItemsChangedSubject.next(cartItems)),
     );
   }
 
   delete(id: number) {
     return this.http.delete<CartApiItem[]>('cart', {params: {id}}).pipe(
+      catchError((response: HttpErrorResponse) => this.handleError(response)),
       tap((cartItems) => this.cartApiItemsChangedSubject.next(cartItems)),
     );
   }
@@ -47,6 +49,11 @@ export class CartService {
     return this.cartItems$.pipe(
       map((cartItems) => cartItems.find(c => c.id === id)?.count ?? 0),
     )
+  }
+
+  private handleError(response: HttpErrorResponse) {
+    alert(response.error);
+    return this.cartApiItems$;
   }
 
   private extendCartApiItem(cartItems: CartApiItem[], paradigms: IParadigm[]): CartItem[] {
