@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {combineLatest, map, Observable, shareReplay} from 'rxjs';
+import {combineLatest, map, mergeWith, Observable, shareReplay, Subject, tap} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {ParadigmsService} from '../paradigms/paradigms.service';
 import {IParadigm} from '../paradigms/i-paradigm';
@@ -9,10 +9,13 @@ import {IParadigm} from '../paradigms/i-paradigm';
 })
 export class CartService {
 
+  private readonly cartApiItemsChangedSubject = new Subject<CartApiItem[]>();
   private readonly cartApiItems$ = this.http.get<CartApiItem[]>('cart');
 
   readonly cartItems$: Observable<CartItem[]> = combineLatest([
-    this.cartApiItems$,
+    this.cartApiItems$.pipe(
+      mergeWith(this.cartApiItemsChangedSubject)
+    ),
     this.paradigmsService.paradigms$,
   ]).pipe(
     map(([cartItems, paradigms]) => this.extendCartApiItem(cartItems, paradigms)),
@@ -29,7 +32,9 @@ export class CartService {
   }
 
   add(id: number) {
-    return this.http.put('cart', id);
+    return this.http.put<CartApiItem[]>('cart', id).pipe(
+      tap((cartItems) => this.cartApiItemsChangedSubject.next(cartItems)),
+    );
   }
 
   private extendCartApiItem(cartItems: CartApiItem[], paradigms: IParadigm[]): CartItem[] {
