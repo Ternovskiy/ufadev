@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {CartService} from '../cart.service';
 
 @Component({
   selector: 'app-cart-badge',
@@ -8,6 +9,8 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 })
 export class CartBadgeComponent {
 
-  constructor() { }
+  readonly count$ = this.cartService.cartItemsCount$;
+
+  constructor(private cartService: CartService) { }
 
 }

@@ -16,6 +16,11 @@ export class CartService {
     this.paradigmsService.paradigms$,
   ]).pipe(
     map(([cartItems, paradigms]) => this.extendCartApiItem(cartItems, paradigms)),
+    shareReplay(1),
+  );
+
+  readonly cartItemsCount$: Observable<number> = this.cartItems$.pipe(
+    map((cartItems) => this.getCount(cartItems)),
   );
 
   constructor(
@@ -32,6 +37,10 @@ export class CartService {
       ...cartItem,
       name: paradigms.find(paradigm => paradigm.id === cartItem.id)?.name ?? '',
     }))
+  }
+
+  private getCount(cartItems: CartItem[]) {
+    return cartItems.reduce((sum, cartItem) => sum + cartItem.count, 0);
   }
 }
 
