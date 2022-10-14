@@ -1,0 +1,19 @@
+<ng-container *ngIf="cartItem$ | async as cartItem" [ngSwitch]="cartItem.count">
+
+  <ng-container *ngSwitchCase="0">
+
+    <button (click)="addToCart(cartItem.id)">В корзину</button>
+
+  </ng-container>
+
+  <ng-container *ngSwitchDefault>
+
+    <button [disabled]="disabled" (click)="deleteFromCart(cartItem.id)">{{cartItem.count > 1 ? '-' : 'Удалить'}}</button>
+
+    <span class="count">{{cartItem.count}}</span>
+
+    <button [disabled]="disabled" (click)="addToCart(cartItem.id)">+</button>
+
+  </ng-container>
+
+</ng-container>

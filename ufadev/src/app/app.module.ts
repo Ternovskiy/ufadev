@@ -11,6 +11,7 @@ import { ParadigmItemComponent } from './paradigms/paradigm-item/paradigm-item.c
 import {ReactiveFormsModule} from '@angular/forms';
 import { CartComponent } from './cart/cart.component';
 import { CartBadgeComponent } from './cart/cart-badge/cart-badge.component';
+import { CartActionsComponent } from './cart/cart-actions/cart-actions.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { CartBadgeComponent } from './cart/cart-badge/cart-badge.component';
     ParadigmItemComponent,
     CartComponent,
     CartBadgeComponent,
+    CartActionsComponent,
   ],
   imports: [
     BrowserModule,

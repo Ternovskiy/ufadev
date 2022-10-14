@@ -37,6 +37,18 @@ export class CartService {
     );
   }
 
+  delete(id: number) {
+    return this.http.delete<CartApiItem[]>('cart', {params: {id}}).pipe(
+      tap((cartItems) => this.cartApiItemsChangedSubject.next(cartItems)),
+    );
+  }
+
+  getCountInCart(id: number) {
+    return this.cartItems$.pipe(
+      map((cartItems) => cartItems.find(c => c.id === id)?.count ?? 0),
+    )
+  }
+
   private extendCartApiItem(cartItems: CartApiItem[], paradigms: IParadigm[]): CartItem[] {
     return cartItems.map<CartItem>(cartItem => ({
       ...cartItem,

@@ -6,9 +6,7 @@
 
     <h3>{{cartItem.name}}</h3>
 
-    <div class="card-actions">
-      <span>{{cartItem.count}} шт.</span>
-    </div>
+    <app-cart-actions [paradigmId]="cartItem.id"></app-cart-actions>
 
   </div>
 
