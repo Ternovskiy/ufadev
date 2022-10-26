@@ -1,0 +1,47 @@
+:host {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.toolbar {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-color: #1976d2;
+  color: white;
+  font-weight: 600;
+  padding: 0 16px;
+}
+
+.toolbar img {
+  margin-right: 16px;
+}
+
+.content {
+  overflow-y: auto;
+  flex: 1;
+  padding: 0 10%;
+}
+
+svg#clouds {
+  position: fixed;
+  bottom: -240px;
+  left: -230px;
+  z-index: -10;
+  width: 1920px;
+}
+
+.logo {
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+

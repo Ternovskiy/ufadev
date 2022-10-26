@@ -1,0 +1,14 @@
+<h2>Парадигмы программирования</h2>
+
+<ng-container *ngIf="paradigms$ | async as paradigms; else loader">
+
+  <app-paradigm-item
+    *ngFor="let paradigm of paradigms"
+    [paradigm]="paradigm">
+  </app-paradigm-item>
+
+</ng-container>
+
+<ng-template #loader>
+  <div class="loader">Загрузка</div>
+</ng-template>
